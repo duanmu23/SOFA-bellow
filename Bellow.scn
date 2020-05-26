@@ -1,0 +1,50 @@
+<?xml version="1.0" ?>
+<!-- See http://wiki.sofa-framework.org/mediawiki/index.php/TutorialForceFieldLiverFEM -->
+<Node name="root" gravity="0 0 0" dt="0.02">
+	<!--Load Plugin-->
+	<RequiredPlugin name="SofaOpenglVisual"/>
+    <RequiredPlugin name="SoftRobots" pluginName ="SoftRobots"/>
+	<RequiredPlugin name="SofaSparseSolver" pluginName="SofaSparseSolver"/>
+
+	<VisualStyle displayFlags="showForceFields showBehaviorModels"/>
+	<!--<DefaultPipeline name="CollisionPipeline" verbose="0" />-->
+	<BruteForceDetection name="N2" />
+
+	
+	<Node name="Bellow" gravity="0 0 0">
+		<!--Solver for integration-->
+		<EulerImplicitSolver name="cg_odesolver" printLog="0" raylighStiffness="0.1" raylighMass="0.1"/>
+		<CGLinearSolver template="GraphScattered" name="linear solver" interations="25" tolerance="1e-05" threshold="1e-05"/>
+		<!--<SparseLDLSolver name="directSolver"/>-->
+		<!--Loading the mesh and make it MechObj-->
+		<MeshObjLoader name="meshLoader0" filename="data/mesh/bellow1.obj"/>
+		<MeshTopology name="mesh" src="@meshLoader0"/>
+		<MechanicalObject name="bellow_obj" template="Vec3d" showObject="true"/>
+
+		<!--Add the forcefield to identify the soft material physical properties, youngs modulus from https://www.reddit.com/r/engineering/comments/440n6v/chart_i_created_showing_the_relationship_between/
+		Need to check poisson Ratio-->
+		<TriangleFEMForceField template="Vec3d" name="FEM Bellow" method="large" poissonRatio="0.49" youngModulus="2.4" />
+		<!--Define the total mass-->
+		<UniformMass name="Mass" totalMass="1"/>
+		<!--Set the constraint. The bottom of bellow should be fixed to the frame.Should define the bottom plane-->
+        <!--<BoxROI name="plane" box="-15 -15 0 5 5 0" drawBoxes="true"/> name="BottonConstraint" indices="@plane.indices" stiffness="1e-12" -->
+		<FixedConstraint />
+
+		<!--Add the new Node for the cavity of bellow actuator-->
+	</Node>
+	<Node name="bellow_cav" gravity="0 0 0">
+			 <MeshObjLoader name="cavityLoader" filename="data/mesh/bellow-cav.obj"/>
+		     <MeshTopology name="mesh_cav" src="@cavityLoader"/>
+		     <MechanicalObject name="cavity"/>
+		     <SurfacePressureForceField name="SurfacePressureForceField" template="Vec3d" value="1" triangles="@mesh_cav.triangles" valueType="pressure"/>
+    </Node>	  
+		<!--Visual model for the bellow 	    
+		<Node name="Visu" gravity="0 0 9.81">
+			<MeshObjLoader name="meshLoader_0" filename="data/mesh/bellow1.obj" handleSeams="1" />
+			<OglModel template="Vec3d" name="VisualModel" src="@meshLoader_0" />
+			<BarycentricMapping />
+	    </Node>-->
+
+    
+
+</Node>
