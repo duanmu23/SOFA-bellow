@@ -13,7 +13,7 @@
 	
 	<Node name="Bellow" gravity="0 0 0">
 		<!--Solver for integration-->
-		<EulerImplicitSolver name="cg_odesolver" printLog="0" raylighStiffness="0.1" raylighMass="0.1"/>
+		<EulerImplicitSolver name="cg_odesolver" printLog="0" rayleighStiffness="0.1" rayleighMass="0.1"/>
 		<!--<CGLinearSolver template="GraphScattered" name="linear solver" interations="25" tolerance="1e-05" threshold="1e-05"/>-->
 		<!----><SparseLDLSolver name="directSolver"/>
 		<!--Loading the mesh and make it MechObj-->
