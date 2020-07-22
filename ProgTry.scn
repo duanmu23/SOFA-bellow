@@ -1,50 +1,71 @@
 <?xml version="1.0" ?>
-<!-- See http://wiki.sofa-framework.org/mediawiki/index.php/TutorialForceFieldLiverFEM -->
+
 <Node name="root" gravity="0 0 0" dt="0.02">
 	<!--Load Plugin-->
 	<RequiredPlugin name="SofaOpenglVisual"/>
-    <RequiredPlugin name="SoftRobots" pluginName ="SoftRobots"/>
-	<RequiredPlugin name="SofaSparseSolver" pluginName="SofaSparseSolver"/>
-
+	<RequiredPlugin name="SoftRobots"/>
+	<RequiredPlugin name="SofaMiscCollision"/> 
+	<RequiredPlugin name='SofaPython'/>
+	
 	<VisualStyle displayFlags="showForceFields showBehaviorModels"/>
-	<!--<DefaultPipeline name="CollisionPipeline" verbose="0" />-->
-	<BruteForceDetection name="N2" />
+	<!--Collision-->
+	<DefaultPipeline name="CollisionPipeline" verbose="0" />
+	<BruteForceDetection name="Detection" />
+	<MinProximityIntersection name="Proximity" alarmDistance="0.8" contactDistance="0.5" />
+	<DefaultContactManager name="Response" />
+	<DefaultCollisionGroupManager name="Group" />
 
-	
-	<Node name="Bellow" gravity="0 0 0">
-		<!--Solver for integration-->
-		<EulerImplicitSolver name="cg_odesolver" printLog="0" rayleighStiffness="0.1" rayleighMass="0.1"/>
-		<!--<CGLinearSolver template="GraphScattered" name="linear solver" interations="25" tolerance="1e-05" threshold="1e-05"/>-->
-		<!----><SparseLDLSolver name="directSolver"/>
-		<!--Loading the mesh and make it MechObj-->
-		<MeshVTKLoader name="meshLoader0" filename="data/mesh/pneunetCutCoarse.vtk"/>
-		<Mesh name="mesh" src="@meshLoader0"/>
-		<!--<TetrahedronSetTopologyContainer name ="Container" src ="@meshLoader0" edges="@meshLoader0.edges" triangles="@meshLoader0.triangles" tetrahedra="@meshLoader0.tetras" />-->
-		<MechanicalObject name="bellow_obj" template="Vec3d" showObject="true"/>
-
-		<!--Add the forcefield to identify the soft material physical properties, youngs modulus from https://www.reddit.com/r/engineering/comments/440n6v/chart_i_created_showing_the_relationship_between/
-		Need to check poisson Ratio-->
-		<TriangleFEMForceField template="Vec3d" name="FEM Bellow" method="large" poissonRatio="0.3" youngModulus="500" />
-		<!--Define the total mass-->
-		<UniformMass name="Mass" totalMass="1"/>
-		<!--Set the constraint. The bottom of bellow should be fixed to the frame.Should define the bottom plane-->
-        <!--<BoxROI name="plane" box="-15 -15 0 5 5 0" drawBoxes="true"/> name="BottonConstraint" indices="@plane.indices" stiffness="1e-12" -->
-		<FixedConstraint />
-
-		<!--Add the new Node for the cavity of actuator-->
-	
-	    <Node name="bellow_cav" gravity="0 0 0">
-			 <MeshSTLLoader name="cavityLoader" filename="data/mesh/pneunetCavityCut.stl"/>
-		     <MeshTopology name="mesh_cav" src="@cavityLoader"/>
-		     <MechanicalObject name="cavity" src="@mesh_cav"/>
-		     <SurfacePressureForceField name="SurfacePressureForceField" template="Vec3d" pressure="0.01"/>
-             <BarycentricMapping input="@.." output="@." />
-	    </Node>	 
-		<!--Visual model for the bellow	-->    
-	    <Node name="Visu" gravity="0 0 9.81">
-			<MeshVTKLoader name="meshLoader_1" filename="data/mesh/pneunetCutCoarse.vtk" />
-			<OglModel template="Vec3d" name="VisualModel" src="@meshLoader_1" />
-			<BarycentricMapping />
-	    </Node>  
+	<Node name="Integration" gravity="0 0 0" >
+		<EulerImplicitSolver name="cg_odesolver" printLog="0"/>
+		<CGLinearSolver template="GraphScattered" name="linear solver" iterations="50" tolerance="1e-19" threshold="1e-19"/>
+		<MeshVTKLoader name="Loader" filename="data/mesh/test2.vtk" rotation="0 90 0"/>
+		<MeshTopology src="@Loader" name="Mesh" />
+		<MechanicalObject name="bellow_obj" template="Vec3d"  />
+		<UniformMass name="Mass" template="Vec3d" totalMass="50"/>
+        <!--BoxROI select the fixed area, the top sides of actuator and the bottom part-->
+     	<BoxROI name="boxROI1" box="-6 -1 -1 6 2 11" drawBoxes="1"/>
+		<BoxROI name="boxROI3" box="-16 33.5 -10 16 36 -8.5   -16 33.5 19 16 36 21   -16 33.5 -10 -14.5 36 21   14.5 33.5 -10 16 36 21 " drawBoxes="1"/>
+		<!--Set the constraint-->
+	    <PartialFixedConstraint name="fix_xy"  fixedDirections="1 0 1"  fixAll="1" />
+     	<FixedConstraint name="LayerConstraint1"  indices="@boxROI1.indices"/>
+		<FixedConstraint name="LayerConstraint2" indices="@boxROI3.indices" />
+		<!--Add a monitor-->
+		<Monitor name="position.data" indices="172" template="Vec3d" showPositions="0" PositionsColor="1 0 1 1" ExportPositions="1" showVelocities="0" VelocitiesColor="0.5 0.5 1 1" ExportVelocities="0"  showForces="0"  ForcesColor="0.8 0.2 0.2 1" ExportForces="0" showTrajectories="0" TrajectoriesPrecision="0.1" TrajectoriesColor="0 1 1 1" sizeFactor="0.01" />
+		<!--Submesh for the bellow part-->
+		<Node name="bellow">
+			<BoxROI name="bellow_part" box="-6 -2 -1 6 36 11" drawBoxes="1" position="@../Mesh.position" triangles="@../Mesh.triangles" tetrahedra="@../Mesh.tetrahedra" computeEdges="0"/>
+			<MeshTopology name="bellow_mesh" position="@../Mesh.position" triangles="@bellow_part.trianglesInROI" tetrahedra="@bellow_part.tetrahedraInROI" />
+			<SubsetTopologicalMapping input="@Mesh" output="@bellow_mesh" samePoints="true" handleTriangles="true" handleTetrahedra="true" printLog="1" />
+			<MechanicalObject />
+            <IdentityMapping /> 
+		    <TetrahedronFEMForceField name="FEM" template="Vec3d" poissonRatio="0.3" youngModulus="1700" />
+		</Node>
+		<!--Submesh for the top layer part-->
+		<Node name="softLayer">
+			<BoxROI name="softLayer_part" box="-16 33 -10 16 36 21" drawBoxes="1" position="@../Mesh.position" triangles="@../Mesh.triangles" tetrahedra="@../Mesh.tetrahedra" computeEdges="0"/>
+			<MeshTopology name="softLayer_mesh" position="@../Mesh.position" triangles="@softLayer_part.trianglesInROI" tetrahedra="@softLayer_part.tetrahedraInROI" />
+			<SubsetTopologicalMapping input="@Mesh" output="@softLayer_mesh" samePoints="true" handleTriangles="true" handleTetrahedra="true" printLog="0" />
+		    <MechanicalObject />
+            <IdentityMapping />
+            <TetrahedronFEMForceField name="FEM2" template="Vec3d" poissonRatio="0.3" youngModulus="500" />
+		</Node>
+		<!--Apply the surface pressure on the inside surface of actuator-->
+		<Node name="bellow_cav">
+	           <MeshVTKLoader name="cavityLoader" filename="data/mesh/bellow_cav_2_fine_cut.vtk"/>
+	           <MeshTopology name="mesh_cav" src="@cavityLoader"/>
+	           <MechanicalObject name="cavity" src="@mesh_cav"  rotation="0 90 0"/>
+	           <SurfacePressureForceField name="SurfacePressureConstraint" template="Vec3d" pressure="700"/>
+	           <BarycentricMapping input="@bellow_obj" output="@cavity" />
+		 </Node>
+		<!--Define the collision-->
+	    <Node name="bColli" >
+			<MeshSTLLoader name="Loader_surf" filename="data/mesh/test2.stl"/>
+			<Mesh src="@Loader_surf" name="mesh_surf"/>
+			<MechanicalObject name="object_surf" template="Vec3d" translation="@../bellow_obj.translation" rotation="@../bellow_obj.rotation" />
+			<TriangleCollisionModel  selfCollision="0"/>
+	        <LineCollisionModel  selfCollision="0"/>
+	        <PointCollisionModel selfCollision="0"/>
+	        <BarycentricMapping />
+		</Node>
 	</Node>
 </Node>
