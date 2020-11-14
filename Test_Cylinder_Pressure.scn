@@ -1,0 +1,70 @@
+<?xml version="1.0" ?>
+<!-- See http://wiki.sofa-framework.org/mediawiki/index.php/TutorialForceFieldLiverFEM -->
+<!--Update
+1. In this version, the version the overall mechanics will be updated, including pneumatic, self collide, and container
+2.
+3. -->
+
+<Node name="root" gravity="0 0 0" dt="0.02">
+        <!--Load Plugin-->
+        <RequiredPlugin name="SofaOpenglVisual"/>
+        <RequiredPlugin name="SoftRobots"/>
+        <RequiredPlugin name="SofaMiscCollision"/>
+        <RequiredPlugin name='SofaPython'/>
+
+        <!--Collision Behavior Define-->
+        <VisualStyle displayFlags="showForceFields showBehaviorModels"/>
+<!----> <DefaultPipeline name="CollisionPipeline" verbose="0" />
+        <FreeMotionAnimationLoop />
+        <GenericConstraintSolver name="GenericConstraintSolver" tolerance="1e-12" maxIterations="100" />
+        <CollisionPipeline name="PipeLine" verbose="0" />
+        <BruteForceDetection name="Detection" />
+        <CollisionResponse name="Response" response="FrictionContact" responseParam="mu=0.6" />
+        <MinProximityIntersection name="Proximity" alarmDistance="1" contactDistance="1" />
+
+<!--	<DefaultContactManager name="Response" />
+        <DefaultCollisionGroupManager name="Group" /> -->
+<!--	<PythonScriptController filename="Controller/controller.py" classname="softLayerController" />-->
+
+        <Node name="Integration" gravity="0 0 0" >
+                <EulerImplicitSolver name="cg_odesolver" printLog="0" rayleighStiffness="0.1" rayleighMass="0.1" />
+<!--		<CGLinearSolver template="GraphScattered" name="linear solver" iterations="50" tolerance="1e-19" threshold="1e-19"/>-->
+                <SparseLDLSolver name="preconditioner" />
+
+                <MeshVTKLoader name="Loader" filename="data/newBellow/cylinder.vtk" rotation="0 90 0"/>
+                <MeshTopology src="@Loader" name="Mesh" />
+                <MechanicalObject name="bellow_obj" template="Vec3d"  />
+
+<!--            <ReadState filename="step.data" name="state"/>
+                <TetrahedronSetTopologyContainer name="Container_All" src="@Loader" />
+                <TetrahedronSetTopologyModifier />
+                <TetrahedronSetTopologyAlgorithms template="Vec3d" />
+                <TetrahedronSetGeometryAlgorithms template="Vec3d" />
+                <MechanicalObject name="bellow_obj" template="Vec3d" />-->
+
+                <UniformMass name="Mass" template="Vec3d" totalMass="1000"/>
+                <TetrahedronFEMForceField name="FEM" method="large" template="Vec3d" poissonRatio="0.3" youngModulus="1700" />
+
+<!--	        <BoxROI name="boxROI1" box="-6 -1 -1 6 2 11" drawBoxes="1"/>
+                <BoxROI name="boxROI3" box="-16 33.5 -10 16 36 -8.5   -16 33.5 19 16 36 21   -16 33.5 -10 -14.5 36 21   14.5 33.5 -10 16 36 21 " drawBoxes="1"/>
+                <BoxROI name="boxROI2" box="-6 -1 -1 6 5 11" drawBoxes="1"/>
+                <BoxROI name="softLayer_part" box="-16 34.2 -10 16 36 21" drawBoxes="0" position="@Mesh.position" />-->
+<!--	        <RestShapeSpringsForceField name="constraints" points="@boxROI.indices" stiffness="1e6" angularStiffness="1e6" />-->
+<!--            <PartialFixedConstraint name="fix_xy"  fixedDirections="1 0 1"  fixAll="1" />
+                <FixedConstraint name="LayerConstraint1"  />
+                <FixedConstraint name="BellowConstraint2" indices="@boxROI1.indices" />-->
+                <!--  <WriteState filename="step.data" time="5" writeX="1" writeX0="1" writeV="1" writeF="1" /> -->
+
+                <LinearSolverConstraintCorrection solverName="preconditioner" />
+                <Monitor name="position.data" indices="172" template="Vec3d" showPositions="0" PositionsColor="1 0 1 1" ExportPositions="1" showVelocities="0" VelocitiesColor="0.5 0.5 1 1" ExportVelocities="0"  showForces="0"  ForcesColor="0.8 0.2 0.2 1" ExportForces="0" showTrajectories="0" TrajectoriesPrecision="0.1" TrajectoriesColor="0 1 1 1" sizeFactor="0.01" />
+                <Node name="bellow_cav">
+                        <MeshSTLLoader name="cavityLoader" filename="data/newBellow/cylinder_cavS.STL"/>
+                        <MeshTopology name="mesh_cav" src="@cavityLoader"/>
+                        <MechanicalObject name="cavity" src="@mesh_cav"  translation="0 2.4 0" rotation="0 90 0"/>
+<!--                        <TriangularFEMForceField name="FEM2" method="large" template="Vec3d" poissonRatio="0.45" youngModulus="115" />
+                    <SurfacePressureForceField name="SurfacePressureConstraint" template="Vec3d" pressure="-40" triangleIndices="@mesh_cav.triangles"/>-->
+                        <SurfacePressureConstraint name="SurfacePressureConstraint" template="Vec3d" value="0.004" triangles="@mesh_cav.triangles" drawScale="0.00002" valueType="pressure" />
+                        <BarycentricMapping name="mapping" mapForces="false" mapMasses="fales" />
+                </Node>
+        </Node>
+</Node>
