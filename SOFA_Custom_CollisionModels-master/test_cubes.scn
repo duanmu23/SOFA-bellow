@@ -1,0 +1,71 @@
+<?xml version="1.0" ?>
+<Node name="root" gravity="0 0 0" dt="0.02">
+    <RequiredPlugin name="SofaOpenglVisual"/>
+    <RequiredPlugin name="SofaScytherInterface"/>
+
+    <DefaultPipeline name="CollisionPipeline" verbose="0" draw="0" depth="0" printLog="1" />
+<!--    <SofaCollisionPipeline name="CollisionPipeline" verbose="0" draw="0" depth="2" />-->
+    <ScytherDetection name="N2" />
+    <DefaultContactManager name="collision response" response="default" printLog="1" />
+<!--    <MinProximityIntersection alarmDistance="0.3" contactDistance="0.2" name="Proximity" />-->
+    <ScytherIntersection alarmDistance="6" contactDistance="5.0" name="ScytherProximity" />
+<!--    <DiscreteIntersection />-->
+
+
+
+
+    <MeshObjLoader name="CubeSurface" filename="mesh/cube_low_res.obj" />
+
+    <Node name="Cube1" gravity="0 0 0">
+        <EulerImplicitSolver name="cg_odesolver1"   rayleighStiffness="0.1" rayleighMass="0.1" />
+        <CGLinearSolver name="linear solver1" iterations="25" tolerance="1e-09" threshold="1e-09" />
+        <MeshGmshLoader name="meshLoader1" filename="mesh/cube_low_res.msh" />
+        <TetrahedronSetTopologyContainer name="topo1" src="@meshLoader1" />
+        <MechanicalObject name="dofs1" src="@meshLoader1" dx="10" dy="0" dz="0" />
+        <TetrahedronSetGeometryAlgorithms template="Vec3d" name="GeomAlgo1" />
+        <DiagonalMass  name="computed using mass density 1" massDensity="1" />
+        <TetrahedralCorotationalFEMForceField template="Vec3d" name="FEM1" method="large" poissonRatio="0.3" youngModulus="3000" computeGlobalMatrix="0" />
+        <Node name="Visu1" tags="Visual" gravity="0 0 0">
+            <OglModel  name="VisualModel1" src="@../../CubeSurface" dx="10" dy="0" dz="0" />
+            <BarycentricMapping name="visual mapping 1" input="@../dofs1" output="@VisualModel1" />
+        </Node>
+        <Node name="Surf1">
+            <MeshTopology src="@../../CubeSurface" />
+            <MechanicalObject src="@../../CubeSurface" dx="10" dy="0" dz="0" />
+<!--            <TriangleCollisionModel />
+            <LineCollisionModel />
+            <PointCollisionModel />-->
+            <ScytherPointModel name="ScytherPointModel1" />
+            <ScytherTriangleModel name="ScytherTriangleModel1" />
+            <BarycentricMapping />
+        </Node>
+    </Node>
+
+
+    <Node name="Cube2" gravity="0 0 0">
+        <EulerImplicitSolver name="cg_odesolver2"   rayleighStiffness="0.1" rayleighMass="0.1" />
+        <CGLinearSolver name="linear solver2" iterations="25" tolerance="1e-09" threshold="1e-09" />
+        <MeshGmshLoader name="meshLoader2" filename="mesh/cube_low_res.msh" />
+        <TetrahedronSetTopologyContainer name="topo2" src="@meshLoader2" />
+        <MechanicalObject name="dofs2" src="@meshLoader2" />
+        <TetrahedronSetGeometryAlgorithms template="Vec3d" name="GeomAlgo2" />
+        <DiagonalMass  name="computed using mass density 2" massDensity="1" />
+        <TetrahedralCorotationalFEMForceField template="Vec3d" name="FEM2" method="large" poissonRatio="0.3" youngModulus="3000" computeGlobalMatrix="0" />
+        <Node name="Visu2" tags="Visual" gravity="0 0 0">
+            <OglModel  name="VisualModel2" src="@../../CubeSurface" />
+            <BarycentricMapping name="visual mapping 2" input="@../dofs2" output="@VisualModel2" />
+        </Node>
+        <Node name="Surf2">
+            <MeshTopology src="@../../CubeSurface" />
+            <MechanicalObject src="@../../CubeSurface" />
+<!--            <TriangleCollisionModel />
+            <LineCollisionModel />
+            <PointCollisionModel />-->
+            <ScytherPointModel name="ScytherPointModel2" />
+            <ScytherTriangleModel name="ScytherTriangleModel1" />
+            <BarycentricMapping />
+        </Node>
+    </Node>
+
+
+</Node>

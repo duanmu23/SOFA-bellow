@@ -1,0 +1,186 @@
+[INFO]    [runSofa] PluginRepository paths = /home/franc/sofa/v19.06/build/install/plugins:/home/franc/sofa/v19.06/build/install/lib
+[INFO]    [runSofa] DataRepository paths = /home/franc/sofa/v19.06/build/install/share/sofa:/home/franc/sofa/v19.06/build/install/share/sofa/examples
+[INFO]    [runSofa] GuiDataRepository paths = /home/franc/sofa/v19.06/build/install/share/sofa/gui/runSofa:/home/franc/sofa/v19.06/build/install/share/sofa/gui/qt
+[INFO]    [runSofa] Loading automatically plugin list in /home/franc/sofa/v19.06/build/install/lib/plugin_list.conf.default
+[INFO]    [PluginManager] Loaded plugin: /home/franc/sofa/v19.06/build/install/lib/libSofaExporter.so
+[INFO]    [PluginManager] Loaded plugin: /home/franc/sofa/v19.06/build/install/lib/libSofaSparseSolver.so
+[INFO]    [PluginManager] Loaded plugin: /home/franc/sofa/v19.06/build/install/lib/libSofaPreconditioner.so
+[INFO]    [PluginManager] Loaded plugin: /home/franc/sofa/v19.06/build/install/lib/libSofaHaptics.so
+[INFO]    [PluginManager] Loaded plugin: /home/franc/sofa/v19.06/build/install/lib/libSofaOpenglVisual.so
+[INFO]    [SofaPython] Added '/home/franc/sofa/v19.06/build/install/plugins/SofaPython/lib/python2.7/site-packages' to sys.path
+[INFO]    [PluginManager] Loaded plugin: /home/franc/sofa/v19.06/build/install/plugins/SofaPython/lib/libSofaPython.so
+[INFO]    [PluginManager] Loaded plugin: /home/franc/sofa/v19.06/build/install/plugins/CImgPlugin/lib/libCImgPlugin.so
+[INFO]    [PluginManager] Loaded plugin: /home/franc/sofa/v19.06/build/install/plugins/SofaMiscCollision/lib/libSofaMiscCollision.so
+[INFO]    [PluginManager] Loaded plugin: /home/franc/sofa/v19.06/build/install/lib/libSofaAllCommonComponents.so
+The constructor with a QGLFormat is deprecated, use the regular contructor instead.
+
+SofaInterface seems fine
+[INFO]    [PluginManager] Loaded plugin: /home/franc/sofa/v19.06/build/install/lib/libSofaScytherInterface.so
+[INFO]    [SceneCheckerVisitor] Validating node "root" with checks: [SceneCheckAPIChange, SceneCheckDuplicatedName, SceneCheckMissingRequiredPlugin, SceneCheckUsingAlias]
+[INFO]    [SceneCheckAPIChange] No 'APIVersion' component in scene. Using the default APIVersion level: 17.06
+[WARNING] [SceneCheckUsingAlias] This scene is using hard coded aliases. Aliases can be very confusing, use with caution.  
+  - ScytherPointCollisionModel: 2 created with alias "ScytherPointModel"  
+  - ScytherTriangleCollisionModel: 2 created with alias "ScytherTriangleModel"
+[INFO]    [SceneCheckerVisitor] Finished validating node "root".
+
+[ScytherDetection] BEGINING COLLISION DETECTION
+[ScytherDetection]    Adding ScytherCubeModel (/Cube1/Surf1/BVLevel1, last=ScytherPointCollisionModel)
+[ScytherDetection]    Adding ScytherCubeModel (/Cube1/Surf1/BVLevel1, last=ScytherTriangleCollisionModel)
+[ScytherDetection]    Adding ScytherCubeModel (/Cube2/Surf2/BVLevel1, last=ScytherPointCollisionModel)
+[ScytherDetection]    Adding ScytherCubeModel (/Cube2/Surf2/BVLevel1, last=ScytherTriangleCollisionModel)
+[ScytherDetection]    Doing detection between /Cube1/Surf1/BVLevel1 (last=ScytherPointCollisionModel)
+                                          and /Cube1/Surf1/BVLevel1 (last=ScytherTriangleCollisionModel)
+[ScytherDetection]    Doing detection between /Cube1/Surf1/BVLevel1 (last=ScytherPointCollisionModel)
+                                          and /Cube2/Surf2/BVLevel1 (last=ScytherPointCollisionModel)
+[ScytherIntersection]     running testIntersection(ScytherCube&, ScytherCube&)
+                true
+[ScytherDetection]        output_map: size = 0
+[ScytherDetection]        output_map: size = 1
+[ScytherDetection]        detection output vector size (before intersect) = 0
+[ScytherIntersection]     running computeIntersection(ScytherCube&, ScytherCube&, ...)
+[ScytherIntersection]     running computeIntersection(ScytherPoint&, ScytherPoint&, ...)
+[ScytherIntersection]     running computeIntersection(ScytherPoint&, ScytherPoint&, ...)
+[ScytherIntersection]     running computeIntersection(ScytherPoint&, ScytherPoint&, ...)
+[ScytherIntersection]     running computeIntersection(ScytherPoint&, ScytherPoint&, ...)
+[ScytherIntersection]     running computeIntersection(ScytherPoint&, ScytherPoint&, ...)
+[ScytherIntersection]     running computeIntersection(ScytherPoint&, ScytherPoint&, ...)
+[ScytherIntersection]     running computeIntersection(ScytherPoint&, ScytherPoint&, ...)
+[ScytherIntersection]     running computeIntersection(ScytherPoint&, ScytherPoint&, ...)
+[ScytherIntersection]     running computeIntersection(ScytherPoint&, ScytherPoint&, ...)
+[ScytherIntersection]     running computeIntersection(ScytherPoint&, ScytherPoint&, ...)
+[ScytherDetection]        detection output vector size  (after intersect) = 49
+[ScytherDetection]    Doing detection between /Cube1/Surf1/BVLevel1 (last=ScytherPointCollisionModel)
+                                          and /Cube2/Surf2/BVLevel1 (last=ScytherTriangleCollisionModel)
+[ScytherIntersection]     running testIntersection(ScytherCube&, ScytherCube&)
+                true
+[ScytherDetection]        output_map: size = 1
+[ScytherDetection]        output_map: size = 2
+[ScytherDetection]        detection output vector size (before intersect) = 0
+[ScytherIntersection]     running computeIntersection(ScytherCube&, ScytherCube&, ...)
+[ScytherDetection]        detection output vector size  (after intersect) = 0
+[ScytherDetection]    Doing detection between /Cube1/Surf1/BVLevel1 (last=ScytherTriangleCollisionModel)
+                                          and /Cube2/Surf2/BVLevel1 (last=ScytherPointCollisionModel)
+[ScytherIntersection]     running testIntersection(ScytherCube&, ScytherCube&)
+                true
+[ScytherDetection]        output_map: size = 2
+[ScytherDetection]        output_map: size = 3
+[ScytherDetection]        detection output vector size (before intersect) = 0
+[ScytherIntersection]     running computeIntersection(ScytherCube&, ScytherCube&, ...)
+[ScytherDetection]        detection output vector size  (after intersect) = 0
+[ScytherDetection]    Doing detection between /Cube1/Surf1/BVLevel1 (last=ScytherTriangleCollisionModel)
+                                          and /Cube2/Surf2/BVLevel1 (last=ScytherTriangleCollisionModel)
+[ScytherIntersection]     running testIntersection(ScytherCube&, ScytherCube&)
+                true
+[ScytherDetection]        output_map: size = 3
+[ScytherDetection]        output_map: size = 4
+[ScytherDetection]        detection output vector size (before intersect) = 0
+[ScytherIntersection]     running computeIntersection(ScytherCube&, ScytherCube&, ...)
+[ScytherDetection]        detection output vector size  (after intersect) = 0
+[ScytherDetection]    Doing detection between /Cube2/Surf2/BVLevel1 (last=ScytherPointCollisionModel)
+                                          and /Cube2/Surf2/BVLevel1 (last=ScytherTriangleCollisionModel)
+[ERROR]   [DefaultContactManager(collision response)] Contact default between ScytherPointCollisionModel and ScytherPointCollisionModel creation failed
+[ERROR]   [DefaultContactManager(collision response)] Supported models for contact default:
+[ERROR]   [DefaultContactManager(collision response)]    BarycentricPenalityContact<SphereCollisionModel<StdVectorTypes<Vec<3, double>, Vec<3, double>, double> >, SphereCollisionModel<StdVectorTypes<Vec<3, double>, Vec<3, double>, double> >, StdVectorTypes<Vec<3, double>, Vec<3, double>, double> >
+[ERROR]   [DefaultContactManager(collision response)]    BarycentricPenalityContact<SphereCollisionModel<StdVectorTypes<Vec<3, double>, Vec<3, double>, double> >, SphereCollisionModel<StdRigidTypes<3, double> >, StdVectorTypes<Vec<3, double>, Vec<3, double>, double> >
+[ERROR]   [DefaultContactManager(collision response)]    BarycentricPenalityContact<SphereCollisionModel<StdRigidTypes<3, double> >, SphereCollisionModel<StdRigidTypes<3, double> >, StdVectorTypes<Vec<3, double>, Vec<3, double>, double> >
+[ERROR]   [DefaultContactManager(collision response)]    BarycentricPenalityContact<SphereCollisionModel<StdVectorTypes<Vec<3, double>, Vec<3, double>, double> >, PointCollisionModel<StdVectorTypes<Vec<3, double>, Vec<3, double>, double> >, StdVectorTypes<Vec<3, double>, Vec<3, double>, double> >
+[ERROR]   [DefaultContactManager(collision response)]    BarycentricPenalityContact<SphereCollisionModel<StdRigidTypes<3, double> >, PointCollisionModel<StdVectorTypes<Vec<3, double>, Vec<3, double>, double> >, StdVectorTypes<Vec<3, double>, Vec<3, double>, double> >
+[ERROR]   [DefaultContactManager(collision response)]    BarycentricPenalityContact<PointCollisionModel<StdVectorTypes<Vec<3, double>, Vec<3, double>, double> >, PointCollisionModel<StdVectorTypes<Vec<3, double>, Vec<3, double>, double> >, StdVectorTypes<Vec<3, double>, Vec<3, double>, double> >
+[ERROR]   [DefaultContactManager(collision response)]    BarycentricPenalityContact<LineCollisionModel<StdVectorTypes<Vec<3, double>, Vec<3, double>, double> >, PointCollisionModel<StdVectorTypes<Vec<3, double>, Vec<3, double>, double> >, StdVectorTypes<Vec<3, double>, Vec<3, double>, double> >
+[ERROR]   [DefaultContactManager(collision response)]    BarycentricPenalityContact<LineCollisionModel<StdVectorTypes<Vec<3, double>, Vec<3, double>, double> >, LineCollisionModel<StdVectorTypes<Vec<3, double>, Vec<3, double>, double> >, StdVectorTypes<Vec<3, double>, Vec<3, double>, double> >
+[ERROR]   [DefaultContactManager(collision response)]    BarycentricPenalityContact<LineCollisionModel<StdVectorTypes<Vec<3, double>, Vec<3, double>, double> >, SphereCollisionModel<StdVectorTypes<Vec<3, double>, Vec<3, double>, double> >, StdVectorTypes<Vec<3, double>, Vec<3, double>, double> >
+[ERROR]   [DefaultContactManager(collision response)]    BarycentricPenalityContact<LineCollisionModel<StdVectorTypes<Vec<3, double>, Vec<3, double>, double> >, SphereCollisionModel<StdRigidTypes<3, double> >, StdVectorTypes<Vec<3, double>, Vec<3, double>, double> >
+[ERROR]   [DefaultContactManager(collision response)]    BarycentricPenalityContact<TriangleCollisionModel<StdVectorTypes<Vec<3, double>, Vec<3, double>, double> >, SphereCollisionModel<StdVectorTypes<Vec<3, double>, Vec<3, double>, double> >, StdVectorTypes<Vec<3, double>, Vec<3, double>, double> >
+[ERROR]   [DefaultContactManager(collision response)]    BarycentricPenalityContact<TriangleCollisionModel<StdVectorTypes<Vec<3, double>, Vec<3, double>, double> >, SphereCollisionModel<StdRigidTypes<3, double> >, StdVectorTypes<Vec<3, double>, Vec<3, double>, double> >
+[ERROR]   [DefaultContactManager(collision response)]    BarycentricPenalityContact<TriangleCollisionModel<StdVectorTypes<Vec<3, double>, Vec<3, double>, double> >, PointCollisionModel<StdVectorTypes<Vec<3, double>, Vec<3, double>, double> >, StdVectorTypes<Vec<3, double>, Vec<3, double>, double> >
+[ERROR]   [DefaultContactManager(collision response)]    BarycentricPenalityContact<TriangleCollisionModel<StdVectorTypes<Vec<3, double>, Vec<3, double>, double> >, LineCollisionModel<StdVectorTypes<Vec<3, double>, Vec<3, double>, double> >, StdVectorTypes<Vec<3, double>, Vec<3, double>, double> >
+[ERROR]   [DefaultContactManager(collision response)]    BarycentricPenalityContact<TriangleCollisionModel<StdVectorTypes<Vec<3, double>, Vec<3, double>, double> >, TriangleCollisionModel<StdVectorTypes<Vec<3, double>, Vec<3, double>, double> >, StdVectorTypes<Vec<3, double>, Vec<3, double>, double> >
+[ERROR]   [DefaultContactManager(collision response)]    BarycentricPenalityContact<TCapsuleModel<StdVectorTypes<Vec<3, double>, Vec<3, double>, double> >, TriangleCollisionModel<StdVectorTypes<Vec<3, double>, Vec<3, double>, double> >, StdVectorTypes<Vec<3, double>, Vec<3, double>, double> >
+[ERROR]   [DefaultContactManager(collision response)]    BarycentricPenalityContact<TCapsuleModel<StdVectorTypes<Vec<3, double>, Vec<3, double>, double> >, LineCollisionModel<StdVectorTypes<Vec<3, double>, Vec<3, double>, double> >, StdVectorTypes<Vec<3, double>, Vec<3, double>, double> >
+[ERROR]   [DefaultContactManager(collision response)]    BarycentricPenalityContact<TCapsuleModel<StdVectorTypes<Vec<3, double>, Vec<3, double>, double> >, TCapsuleModel<StdVectorTypes<Vec<3, double>, Vec<3, double>, double> >, StdVectorTypes<Vec<3, double>, Vec<3, double>, double> >
+[ERROR]   [DefaultContactManager(collision response)]    BarycentricPenalityContact<TCapsuleModel<StdVectorTypes<Vec<3, double>, Vec<3, double>, double> >, SphereCollisionModel<StdVectorTypes<Vec<3, double>, Vec<3, double>, double> >, StdVectorTypes<Vec<3, double>, Vec<3, double>, double> >
+[ERROR]   [DefaultContactManager(collision response)]    BarycentricPenalityContact<TCapsuleModel<StdVectorTypes<Vec<3, double>, Vec<3, double>, double> >, SphereCollisionModel<StdRigidTypes<3, double> >, StdVectorTypes<Vec<3, double>, Vec<3, double>, double> >
+[ERROR]   [DefaultContactManager(collision response)]    BarycentricPenalityContact<TOBBModel<StdRigidTypes<3, double> >, TOBBModel<StdRigidTypes<3, double> >, StdVectorTypes<Vec<3, double>, Vec<3, double>, double> >
+[ERROR]   [DefaultContactManager(collision response)]    BarycentricPenalityContact<TCapsuleModel<StdVectorTypes<Vec<3, double>, Vec<3, double>, double> >, TOBBModel<StdRigidTypes<3, double> >, StdVectorTypes<Vec<3, double>, Vec<3, double>, double> >
+[ERROR]   [DefaultContactManager(collision response)]    BarycentricPenalityContact<SphereCollisionModel<StdVectorTypes<Vec<3, double>, Vec<3, double>, double> >, TOBBModel<StdRigidTypes<3, double> >, StdVectorTypes<Vec<3, double>, Vec<3, double>, double> >
+[ERROR]   [DefaultContactManager(collision response)]    BarycentricPenalityContact<SphereCollisionModel<StdRigidTypes<3, double> >, TOBBModel<StdRigidTypes<3, double> >, StdVectorTypes<Vec<3, double>, Vec<3, double>, double> >
+[ERROR]   [DefaultContactManager(collision response)]    BarycentricPenalityContact<TriangleCollisionModel<StdVectorTypes<Vec<3, double>, Vec<3, double>, double> >, TOBBModel<StdRigidTypes<3, double> >, StdVectorTypes<Vec<3, double>, Vec<3, double>, double> >
+[ERROR]   [DefaultContactManager(collision response)]    BarycentricPenalityContact<TCapsuleModel<StdRigidTypes<3, double> >, TriangleCollisionModel<StdVectorTypes<Vec<3, double>, Vec<3, double>, double> >, StdVectorTypes<Vec<3, double>, Vec<3, double>, double> >
+[ERROR]   [DefaultContactManager(collision response)]    BarycentricPenalityContact<TCapsuleModel<StdRigidTypes<3, double> >, LineCollisionModel<StdVectorTypes<Vec<3, double>, Vec<3, double>, double> >, StdVectorTypes<Vec<3, double>, Vec<3, double>, double> >
+[ERROR]   [DefaultContactManager(collision response)]    BarycentricPenalityContact<TCapsuleModel<StdRigidTypes<3, double> >, TCapsuleModel<StdRigidTypes<3, double> >, StdVectorTypes<Vec<3, double>, Vec<3, double>, double> >
+[ERROR]   [DefaultContactManager(collision response)]    BarycentricPenalityContact<TCapsuleModel<StdVectorTypes<Vec<3, double>, Vec<3, double>, double> >, TCapsuleModel<StdRigidTypes<3, double> >, StdVectorTypes<Vec<3, double>, Vec<3, double>, double> >
+[ERROR]   [DefaultContactManager(collision response)]    BarycentricPenalityContact<TCapsuleModel<StdRigidTypes<3, double> >, SphereCollisionModel<StdVectorTypes<Vec<3, double>, Vec<3, double>, double> >, StdVectorTypes<Vec<3, double>, Vec<3, double>, double> >
+[ERROR]   [DefaultContactManager(collision response)]    BarycentricPenalityContact<TCapsuleModel<StdRigidTypes<3, double> >, SphereCollisionModel<StdRigidTypes<3, double> >, StdVectorTypes<Vec<3, double>, Vec<3, double>, double> >
+[ERROR]   [DefaultContactManager(collision response)]    BarycentricPenalityContact<TCapsuleModel<StdRigidTypes<3, double> >, TOBBModel<StdRigidTypes<3, double> >, StdVectorTypes<Vec<3, double>, Vec<3, double>, double> >
+[ERROR]   [DefaultContactManager(collision response)]    BarycentricPenalityContact<TCylinderModel<StdRigidTypes<3, double> >, TCylinderModel<StdRigidTypes<3, double> >, StdVectorTypes<Vec<3, double>, Vec<3, double>, double> >
+[ERROR]   [DefaultContactManager(collision response)]    BarycentricPenalityContact<TCylinderModel<StdRigidTypes<3, double> >, TriangleCollisionModel<StdVectorTypes<Vec<3, double>, Vec<3, double>, double> >, StdVectorTypes<Vec<3, double>, Vec<3, double>, double> >
+[ERROR]   [DefaultContactManager(collision response)]    BarycentricPenalityContact<TCylinderModel<StdRigidTypes<3, double> >, TCapsuleModel<StdRigidTypes<3, double> >, StdVectorTypes<Vec<3, double>, Vec<3, double>, double> >
+[ERROR]   [DefaultContactManager(collision response)]    BarycentricPenalityContact<TCapsuleModel<StdVectorTypes<Vec<3, double>, Vec<3, double>, double> >, TCylinderModel<StdRigidTypes<3, double> >, StdVectorTypes<Vec<3, double>, Vec<3, double>, double> >
+[ERROR]   [DefaultContactManager(collision response)]    BarycentricPenalityContact<TCylinderModel<StdRigidTypes<3, double> >, SphereCollisionModel<StdVectorTypes<Vec<3, double>, Vec<3, double>, double> >, StdVectorTypes<Vec<3, double>, Vec<3, double>, double> >
+[ERROR]   [DefaultContactManager(collision response)]    BarycentricPenalityContact<TCylinderModel<StdRigidTypes<3, double> >, SphereCollisionModel<StdRigidTypes<3, double> >, StdVectorTypes<Vec<3, double>, Vec<3, double>, double> >
+[ERROR]   [DefaultContactManager(collision response)]    BarycentricPenalityContact<TCylinderModel<StdRigidTypes<3, double> >, TOBBModel<StdRigidTypes<3, double> >, StdVectorTypes<Vec<3, double>, Vec<3, double>, double> >
+[ERROR]   [DefaultContactManager(collision response)]    BarycentricPenalityContact<TetrahedronModel, SphereCollisionModel<StdVectorTypes<Vec<3, double>, Vec<3, double>, double> >, StdVectorTypes<Vec<3, double>, Vec<3, double>, double> >
+[ERROR]   [DefaultContactManager(collision response)]    BarycentricPenalityContact<TetrahedronModel, PointCollisionModel<StdVectorTypes<Vec<3, double>, Vec<3, double>, double> >, StdVectorTypes<Vec<3, double>, Vec<3, double>, double> >
+[ERROR]   [DefaultContactManager(collision response)]    BarycentricPenalityContact<TetrahedronModel, LineCollisionModel<StdVectorTypes<Vec<3, double>, Vec<3, double>, double> >, StdVectorTypes<Vec<3, double>, Vec<3, double>, double> >
+[ERROR]   [DefaultContactManager(collision response)]    BarycentricPenalityContact<TetrahedronModel, TriangleCollisionModel<StdVectorTypes<Vec<3, double>, Vec<3, double>, double> >, StdVectorTypes<Vec<3, double>, Vec<3, double>, double> >
+[ERROR]   [DefaultContactManager(collision response)]    BarycentricPenalityContact<TetrahedronModel, TetrahedronModel, StdVectorTypes<Vec<3, double>, Vec<3, double>, double> >
+[ERROR]   [DefaultContactManager(collision response)] error...
+
+[ScytherDetection] BEGINING COLLISION DETECTION
+[ScytherDetection]    Adding ScytherCubeModel (/Cube1/Surf1/BVLevel1, last=ScytherPointCollisionModel)
+[ScytherDetection]    Adding ScytherCubeModel (/Cube1/Surf1/BVLevel1, last=ScytherTriangleCollisionModel)
+[ScytherDetection]    Adding ScytherCubeModel (/Cube2/Surf2/BVLevel1, last=ScytherPointCollisionModel)
+[ScytherDetection]    Adding ScytherCubeModel (/Cube2/Surf2/BVLevel1, last=ScytherTriangleCollisionModel)
+[ScytherDetection]    Doing detection between /Cube1/Surf1/BVLevel1 (last=ScytherPointCollisionModel)
+                                          and /Cube1/Surf1/BVLevel1 (last=ScytherTriangleCollisionModel)
+[ScytherDetection]    Doing detection between /Cube1/Surf1/BVLevel1 (last=ScytherPointCollisionModel)
+                                          and /Cube2/Surf2/BVLevel1 (last=ScytherPointCollisionModel)
+[ScytherIntersection]     running testIntersection(ScytherCube&, ScytherCube&)
+                true
+[ScytherDetection]        output_map: size = 1
+[ScytherDetection]        output_map: size = 1
+[ScytherDetection]        detection output vector size (before intersect) = 0
+[ScytherIntersection]     running computeIntersection(ScytherCube&, ScytherCube&, ...)
+[ScytherIntersection]     running computeIntersection(ScytherPoint&, ScytherPoint&, ...)
+[ScytherIntersection]     running computeIntersection(ScytherPoint&, ScytherPoint&, ...)
+[ScytherIntersection]     running computeIntersection(ScytherPoint&, ScytherPoint&, ...)
+[ScytherIntersection]     running computeIntersection(ScytherPoint&, ScytherPoint&, ...)
+[ScytherIntersection]     running computeIntersection(ScytherPoint&, ScytherPoint&, ...)
+[ScytherIntersection]     running computeIntersection(ScytherPoint&, ScytherPoint&, ...)
+[ScytherIntersection]     running computeIntersection(ScytherPoint&, ScytherPoint&, ...)
+[ScytherIntersection]     running computeIntersection(ScytherPoint&, ScytherPoint&, ...)
+[ScytherIntersection]     running computeIntersection(ScytherPoint&, ScytherPoint&, ...)
+[ScytherIntersection]     running computeIntersection(ScytherPoint&, ScytherPoint&, ...)
+[ScytherDetection]        detection output vector size  (after intersect) = 49
+[ScytherDetection]    Doing detection between /Cube1/Surf1/BVLevel1 (last=ScytherPointCollisionModel)
+                                          and /Cube2/Surf2/BVLevel1 (last=ScytherTriangleCollisionModel)
+[ScytherIntersection]     running testIntersection(ScytherCube&, ScytherCube&)
+                true
+[ScytherDetection]        output_map: size = 1
+[ScytherDetection]        output_map: size = 2
+[ScytherDetection]        detection output vector size (before intersect) = 0
+[ScytherIntersection]     running computeIntersection(ScytherCube&, ScytherCube&, ...)
+[ScytherDetection]        detection output vector size  (after intersect) = 0
+[ScytherDetection]    Doing detection between /Cube1/Surf1/BVLevel1 (last=ScytherTriangleCollisionModel)
+                                          and /Cube2/Surf2/BVLevel1 (last=ScytherPointCollisionModel)
+[ScytherIntersection]     running testIntersection(ScytherCube&, ScytherCube&)
+                true
+[ScytherDetection]        output_map: size = 2
+[ScytherDetection]        output_map: size = 3
+[ScytherDetection]        detection output vector size (before intersect) = 0
+[ScytherIntersection]     running computeIntersection(ScytherCube&, ScytherCube&, ...)
+[ScytherDetection]        detection output vector size  (after intersect) = 0
+[ScytherDetection]    Doing detection between /Cube1/Surf1/BVLevel1 (last=ScytherTriangleCollisionModel)
+                                          and /Cube2/Surf2/BVLevel1 (last=ScytherTriangleCollisionModel)
+[ScytherIntersection]     running testIntersection(ScytherCube&, ScytherCube&)
+                true
+[ScytherDetection]        output_map: size = 3
+[ScytherDetection]        output_map: size = 4
+[ScytherDetection]        detection output vector size (before intersect) = 0
+[ScytherIntersection]     running computeIntersection(ScytherCube&, ScytherCube&, ...)
+[ScytherDetection]        detection output vector size  (after intersect) = 0
+[ScytherDetection]    Doing detection between /Cube2/Surf2/BVLevel1 (last=ScytherPointCollisionModel)
+                                          and /Cube2/Surf2/BVLevel1 (last=ScytherTriangleCollisionModel)
+[ERROR]   [DefaultContactManager(collision response)] Contact default between ScytherPointCollisionModel and ScytherPointCollisionModel creation failed
+
+
