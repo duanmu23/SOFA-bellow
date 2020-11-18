@@ -2,50 +2,9 @@ import Sofa
 import os
 import math
 
-
-def moveRestPos(rest_pos, dx, dy, dz):
-    str_out = ' '
-    for i in xrange(0,len(rest_pos)) :
-        str_out= str_out + ' ' + str(rest_pos[i][0]+dx)
-        str_out= str_out + ' ' + str(rest_pos[i][1]+dy)
-        str_out= str_out + ' ' + str(rest_pos[i][2]+dz)
-    return str_out
-
-def Error(cur_position, reference):
-    error = reference - cur_position 
-    return error
-
-def Pcontroller(error, gain_P):
-    effort = gain_P * error
-    return effort
-
-def Icontroller(inte, dt, gain_I):
-    inte = 0
-#    for i in xrange(1,len(error)):
-#        inte += dt(error[i] - error[i-1])
-    effort = inte * gain_I
-    return effort
-
-def Dcontroller(error, dt, gain_D):
-    effort = error/dt * gain_D
-
-    return effort
-
 class softLayerController(Sofa.PythonScriptController):
 
-    # optionnally, script can create a graph...
-        
-
-   # def onBeginAnimationStep(self,dt):
-        
-        # adding at each time step a rotation angle in z (Euler angle) of 50 degree
-        #PosZ = self.object.findData('translation').value[0][2]
-   #     PosZ = self.object.position
-    #    PosZ[0][2]  = PosZ[0][2]  - 5
-    #    print PosZ[0][2] 
-    #    self.object.position= PosZ[0][2] 
-    #    return 0
-
+    # optionnally, script can create a graph...     
     def initGraph(self,node):
         integration = node.getChild('Integration')
         self.node1 = integration.getChild('bellow_cav')
@@ -54,30 +13,30 @@ class softLayerController(Sofa.PythonScriptController):
         self.box3 = integration.getObject('boxROI3')
         self.box1 = integration.getObject('boxROI1')
         self.constraint = integration.getObject('LayerConstraint1')
-
-        table = node.getChild('table')
-        self.engine2 = table.getObject('engine')
-        
-        self.prev_error = 0
-        self.inte = 0
         self.time = 0
+        self.p = 0
         return 0
 
     def onBeginAnimationStep(self,dt):
         indice1 = self.box1.findData('indices').value
         indice3 = self.box3.findData('indices').value
-        vel = self.engine.velocity
         
         self.time = self.time + dt
-        if self.time < 10:
-            self.constraint.findData('indices').value = indice1
-        else:
+        self.p = self.p + dt
+        if self.time < 3:
             self.constraint.findData('indices').value = indice3
-            for i in xrange(0,len(indice3)):
-                index = indice3[i][0]
-                vel[index][1] = 0
+            self.p = 0
+        else:
+            self.cavity.findData('value').value = self.p
 
-        self.engine.velocity = vel
+        return 0
+
+
+
+
+
+
+############################################################
 #        print(x)
 
         #for i in xrange(0,len(x)):
@@ -134,4 +93,40 @@ class softLayerController(Sofa.PythonScriptController):
         #self.engine2.findData('input_position').value = position
         #print(position[0][1])
 #################################################
-        return 0
+# def onBeginAnimationStep(self,dt):
+
+     # adding at each time step a rotation angle in z (Euler angle) of 50 degree
+     #PosZ = self.object.findData('translation').value[0][2]
+#     PosZ = self.object.position
+ #    PosZ[0][2]  = PosZ[0][2]  - 5
+ #    print PosZ[0][2]
+ #    self.object.position= PosZ[0][2]
+ #    return 0
+ ################################################################
+ #def moveRestPos(rest_pos, dx, dy, dz):
+ #   str_out = ' '
+ #   for i in xrange(0,len(rest_pos)) :
+ #        str_out= str_out + ' ' + str(rest_pos[i][0]+dx)
+ #        str_out= str_out + ' ' + str(rest_pos[i][1]+dy)
+ #        str_out= str_out + ' ' + str(rest_pos[i][2]+dz)
+ #    return str_out
+
+ #def Error(cur_position, reference):
+ #    error = reference - cur_position
+ #   return error
+
+ #def Pcontroller(error, gain_P):
+ #    effort = gain_P * error
+ #    return effort
+ #
+ #def Icontroller(inte, dt, gain_I):
+ #    inte = 0
+ #    for i in xrange(1,len(error)):
+ #        inte += dt(error[i] - error[i-1])
+ #    effort = inte * gain_I
+ #    return effort
+
+ #def Dcontroller(error, dt, gain_D):
+ #    effort = error/dt * gain_D
+
+ #    return effort
