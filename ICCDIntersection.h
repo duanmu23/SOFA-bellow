@@ -27,7 +27,8 @@
 #include <sofa/core/CollisionModel.h>
 
 #include <sofa/defaulttype/VecTypes.h>
-
+#include <sofa/defaulttype/Mat.h>
+#include <sofa/defaulttype/Vec.h>
 
 //#include "ICCD.h"
 
@@ -37,8 +38,6 @@ namespace sofa {
 namespace component {
 
 namespace collision {
-
-template <class TDataTypes>
 
 class SOFA_BASE_COLLISION_API ICCDIntersection :
         public sofa::component::collision::BaseProximityIntersection
@@ -62,50 +61,60 @@ class SOFA_BASE_COLLISION_API ICCDIntersection :
 
 public:
         SOFA_CLASS(ICCDIntersection, BaseProximityIntersection);
+        Data<bool> useLineLine;
 
 protected:
         ICCDIntersection();
-        ~ICCDIntersection() override;
-
 public:
         typedef sofa::core::collision::IntersectorFactory<ICCDIntersection> IntersectorFactory;
 
-
-        typedef TDataTypes DataTypes;
-        typedef typename DataTypes::Coord VecCoord;
-
         void init() override;
-        inline float ICCDIntersection::cross(VecCoord& a, VecCoord& b){ return a.cross(b); }
-
-        inline float ICCDIntersection::dot(VecCoord& a, VecCoord& b){ return dot(a, b); }
 
         //need to define whether the collisionElementIterator shows the vertices' position
-        inline float ICCDIntersection::norm(VecCoord& a, VecCoord& b, VecCoord& c, VecCoord& d){ return  cross((a - b), (c - d)); }
+        template <class DataTypes , class N>
+        inline float ICCDIntersection::norm(DataTypes a, DataTypes b, DataTypes c, DataTypes d){ return  defaulttype::Vec<N, DataTypes>::cross((a - b), (c - d)); }
 
-        inline float ICCDIntersection::norm(VecCoord& p1, VecCoord& p2, VecCoord& p3){ return cross((p2 - p1), (p3 - p1)); }
+        template <class DataTypes, class N>
+        inline float ICCDIntersection::norm(DataTypes p1, DataTypes p2, DataTypes p3){ return defaulttype::Vec<N, DataTypes>::cross((p2 - p1), (p3 - p1)); }
 
         //what is the P
-        inline bool ICCDIntersection::side(VecCoord& a, VecCoord& b, VecCoord& c, VecCoord& p){ return norm(a, b, c) * dot(p - a) > 0; }
+        template <class DataTypes, class N>
+        inline bool ICCDIntersection::side(DataTypes a, DataTypes b, DataTypes c, DataTypes p){ return norm(a, b, c) * defaulttype::Vec<N, DataTypes>::dot(p, a) > 0; }
 
         float ret_vf();
         float ret_ee();
 
-        bool ICCDIntersection::NormalConeTest(VecCoord&, VecCoord&, VecCoord&, VecCoord&,
-                                                       VecCoord&, VecCoord&, VecCoord&, VecCoord&);
+        template <class DataTypes, , class N>
+        bool ICCDIntersection::NormalConeTest(DataTypes&, DataTypes&, DataTypes&, DataTypes&,
+                                                       DataTypes&, DataTypes&, DataTypes&, DataTypes&);
 
-        bool ICCDIntersection::check_vf(TriangleCollisionModel&, PointCollisionModel&);
-        bool ICCDIntersection::check_ee(LineCollisionModel&, LineCollsionModel&);
-        float ICCDIntersection::intersect_vf(TriangleCollisionModel&, PointCollisionModel&);
-        float ICCDIntersection::do_vf(TriangleCollisionModel&, PointCollisionModel&);
-        float ICCDIntersection::intersect_ee(LineCollisionModel& e1, LineCollisionModel& e2);
-        float ICCDIntersection::do_ee(LineCollisionModel& e1, LineCollisionModel& e2);
+
+        bool ICCDIntersection::check_vf(Triangle&, Point&);
+        bool ICCDIntersection::check_ee(Line&, Line&);
+        float ICCDIntersection::intersect_vf(Triangle&, Point&);
+        float ICCDIntersection::do_vf(Triangle&, Point&);
+        float ICCDIntersection::intersect_ee(Line&, Line&);
+        float ICCDIntersection::do_ee(Line&, Line&);
 
         void beginBroadPhase() override;
         void endBroadPhase() override;
 
 };
+
+} //namespace collision
+
+} //namespace component
+
+namespace core
+{
+namespace collision
+{
+#if  !defined(SOFA_COMPONENT_COLLISION_ICCDIntersection_CPP)
+extern template class SOFA_BASE_COLLISION_API IntersectorFactory<component::collision::ICCDIntersection>;
+#endif
 }
 }
-}
+
+} //namespace sofa
 #endif // !ICCDIntersection_H
 
